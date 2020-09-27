@@ -5,7 +5,7 @@ RUN apt-get update -yqq \
     postgresql-client \
     && rm -rf /var/lib/apt/lists
 
-WORKDIR /usr/app
+WORKDIR /microserviceUser
 COPY Gemfile* ./
 RUN bundle install
 COPY . .
