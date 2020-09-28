@@ -5,20 +5,16 @@ application up and running.
 
 Things you may want to cover:
 
-* Ruby version
+* Ruby version:2.6.6
 
-* System dependencies
+### Docker
+fisrt build the image:
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```sh
+$ docker build -t user_ms .
+$ docker run --name "container_name" -d user_ms
+```
+You can test it by visiting http://container-ip:3000 in a browser or, if you need access outside the host, on port 8080:
+```sh
+$ docker run --name "container_name" -p 8080:3000 -d user_ms
+```
