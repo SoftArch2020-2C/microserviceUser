@@ -1,0 +1,125 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/v1/users/":
+    post:
+      summary: Create an User
+      tags:
+      - Users
+      parameters: []
+      responses:
+        '201':
+          description: user created
+          content: {}
+        '422':
+          description: invalid requuest
+          content: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                lastname:
+                  type: string
+                email:
+                  type: string
+                phone_number:
+                  type: string
+                carrer:
+                  type: string
+                password:
+                  type: string
+                is_professor:
+                  type: boolean
+              required:
+              - name
+              - lastname
+              - email
+              - phone_number
+              - carrer
+              - password
+  "/api/v1/users/{id}":
+    get:
+      summary: Retrieves an User
+      tags:
+      - Users
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: User found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: Integer
+                  name:
+                    type: string
+                  lastname:
+                    type: string
+                  email:
+                    type: string
+                  phone_number:
+                    type: string
+                  carrer:
+                    type: string
+                  is_professor:
+                    type: boolean
+                required:
+                - id
+                - name
+                - email
+        '404':
+          description: user not found
+          content: {}
+    put:
+      summary: Updates an User
+      tags:
+      - Users
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: User update accepted
+          content: {}
+        '404':
+          description: User not found
+          content: {}
+    delete:
+      summary: Delete an User
+      tags:
+      - Users
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: User deleted succesfully
+          content: {}
+        '404':
+          description: User not found
+          content: {}
+servers:
+- url: https://{defaultHost}
+  variables:
+    defaultHost:
+      default: localhost:3000
