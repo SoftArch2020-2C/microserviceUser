@@ -66,10 +66,3 @@ node_modules/
 yarn-debug.log*
 .yarn-integrity
 
-# Ignore uploaded files in development
-/storage/*
-<<<<<<< HEAD
-!/storage/.keep
-=======
-!/storage/.keep
->>>>>>> 169c60bb9d5b26cac3ea1b93a33b661a477d2e6e
