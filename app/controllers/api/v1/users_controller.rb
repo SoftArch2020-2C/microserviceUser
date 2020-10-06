@@ -33,8 +33,6 @@ class Api::V1::UsersController < ApplicationController
     if @user!= nil
       @user.update(user_params)
       render json:"user :" + @user.name + "  updated succesfully" , status: :accepted
-    else
-      render json: @user.errors, status: :unprocessable_entity
     end
   end
 
