@@ -2,6 +2,26 @@ require 'swagger_helper'
 
 RSpec.describe 'api/v1/users_controller.', type: :request do
   path "/api/v1/users/" do
+    get "Retrieves all users" do
+      tags "Users"
+      consumes "application/json"
+
+      response "200", "Users found" do
+        schema type: :object,
+               properties:{
+                   id: {type: Integer,},
+                   name: { type: :string },
+                   email: { type: :string },
+               },
+               required:["id","name","email"]
+        let(:user) { { name:"juanito",lastname:"alimaña",email:"juanito@gmail.com","phonenumber":"1548632157",carrer:"diseño",password:"9876543" } }
+        run_test!
+      end
+      response "404", "users not found" do
+        let(:user) {{name:"juanito"}}
+        run_test!
+      end
+    end
     post "Create an User" do
       tags "Users"
       consumes "application/json"

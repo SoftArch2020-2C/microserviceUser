@@ -5,6 +5,17 @@ info:
   version: v1
 paths:
   "/api/v1/users/":
+    get:
+      summary: Retrieves all users
+      tags:
+      - Users
+      responses:
+        '200':
+          description: Users found
+          content: {}
+        '404':
+          description: users not found
+          content: {}
     post:
       summary: Create an User
       tags:
