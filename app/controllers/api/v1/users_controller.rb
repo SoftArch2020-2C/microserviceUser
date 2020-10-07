@@ -21,7 +21,8 @@ class Api::V1::UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      render json: "created user with id "+ @user.id.to_s, status: :created
+      #render json: "created user:"+ @user.name.to_s, status: :created
+      render json: @user, status: :created
     else
       render json: @user.errors, status: :unprocessable_entity
     end
@@ -32,15 +33,16 @@ class Api::V1::UsersController < ApplicationController
     find_user
     if @user!= nil
       @user.update(user_params)
-      render json:"user :" + @user.name + "  updated succesfully" , status: :accepted
+       render  json:  @users , status: :accepted
     end
   end
 
   # DELETE /users/1
   def destroy
     find_user
+
     if @user != nil
-      render  json:  "user :"+ @user.name + " succesfully feleted", status: :no_content
+      render  status: :no_content
       @user.destroy
     end
 
