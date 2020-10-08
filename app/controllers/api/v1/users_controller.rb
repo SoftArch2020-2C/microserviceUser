@@ -31,10 +31,12 @@ class Api::V1::UsersController < ApplicationController
   # PATCH/PUT /users/{id}
   def update
     find_user
-    if @user!= nil
-      @user.update(user_params)
-       render  json:  @users , status: :accepted
+    unless @user.update(user_params)
+      render json: {errors: @user.errors.full_messages}, status: :not_acceptable
+      else
+      render json: "user named: "+ @user.name + " updated succesfully", status: :accepted
     end
+
   end
 
   # DELETE /users/1
@@ -42,7 +44,8 @@ class Api::V1::UsersController < ApplicationController
     find_user
 
     if @user != nil
-      render  status: :no_content
+      #render  json: "user deleted succesfully", status: :no_content
+      render text:"user deleted succesfully", status: :no_content
       @user.destroy
     end
 
@@ -51,7 +54,6 @@ class Api::V1::UsersController < ApplicationController
 
   private
   # Use callbacks to share common setup or constraints between actions.
-
 
   def find_user
     @user = User.find_by_id!(params[:id])
