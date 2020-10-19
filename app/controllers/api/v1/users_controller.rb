@@ -8,13 +8,14 @@ class Api::V1::UsersController < ApplicationController
     render json: @users.to_json(only: [:id, :name, :email])
   end
 
-  # GET /users/{id}
+  # GET /users/{email}
   def show
-    find_user
+    find_user_by_email
     if @user != nil
       render json: @user, status: :ok
     end
   end
+
 
   # POST /users
   def create
@@ -28,21 +29,19 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
-  # PATCH/PUT /users/{id}
+  # PATCH/PUT /users/{email}
   def update
-    find_user
-    unless @user.update(user_params)
-      render json: {errors: @user.errors.full_messages}, status: :not_acceptable
-      else
-      render json: "user named: "+ @user.name + " updated succesfully", status: :accepted
+    find_user_by_email
+    if @user!=nil
+      @user.update(user_update_params)
+      render json: @user, status: :accepted
     end
 
   end
 
   # DELETE /users/1
   def destroy
-    find_user
-
+    find_user_by_email
     if @user != nil
       #render  json: "user deleted succesfully", status: :no_content
       render text:"user deleted succesfully", status: :no_content
@@ -55,8 +54,11 @@ class Api::V1::UsersController < ApplicationController
   private
   # Use callbacks to share common setup or constraints between actions.
 
-  def find_user
-    @user = User.find_by_id!(params[:id])
+
+  def find_user_by_email
+    email=(params[:email])
+    email = email + ".com"
+    @user = User.find_by! email: email
   rescue ActiveRecord::RecordNotFound
     render json: { errors: 'user not found' }, status: :not_found
   end
@@ -64,5 +66,9 @@ class Api::V1::UsersController < ApplicationController
   # Only allow a trusted parameter "white list" through.
   def user_params
     params.permit(:name, :lastname,:phone_number, :carrer, :is_professor, :email,:user,:password, :id )
+  end
+
+  def user_update_params
+    params.permit(:name, :lastname,:phone_number, :carrer, :is_professor )
   end
 end
