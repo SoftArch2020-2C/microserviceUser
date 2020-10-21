@@ -5,14 +5,18 @@ class Api::V1::UsersController < ApplicationController
   def index
     @users = User.all
 
-    render json: @users.to_json(only: [:id, :name, :email])
+    render json: @users.to_json(only: [:id, :name, :email,:encrypted_password])
   end
 
   # GET /users/{email}
   def show
     find_user_by_email
     if @user != nil
-      render json: @user, status: :ok
+      if a = @user.valid_password?(params[:password])
+        render json: @user, status: :ok
+      else
+        render json: a, status: :not_acceptable
+      end
     end
   end
 
@@ -20,7 +24,6 @@ class Api::V1::UsersController < ApplicationController
   # POST /users
   def create
     @user = User.new(user_params)
-
     if @user.save
       #render json: "created user:"+ @user.name.to_s, status: :created
       render json: @user, status: :created
@@ -53,6 +56,15 @@ class Api::V1::UsersController < ApplicationController
 
   private
   # Use callbacks to share common setup or constraints between actions.
+
+
+
+  def auth_user (password)
+    email=(params[:email])
+    email = email + ".com"
+    @user = User.find_by! email: email
+    User.find(1).valid_pa
+  end
 
 
   def find_user_by_email
