@@ -27,7 +27,7 @@ gem 'rack-cors'
 
 gem 'dotenv-rails', groups: [:development, :test]
 
-gem 'simple_token_authentication', '~> 1.0' # see semver.org
+gem 'jwt'
 
 gem 'rswag'
 
