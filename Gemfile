@@ -29,6 +29,8 @@ gem 'dotenv-rails', groups: [:development, :test]
 
 gem 'jwt'
 
+gem 'openssl'
+
 gem 'rswag'
 
 group :development, :test do

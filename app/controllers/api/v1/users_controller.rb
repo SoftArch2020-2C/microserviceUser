@@ -1,4 +1,5 @@
 class Api::V1::UsersController < ApplicationController
+  require 'jwt'
   # before_action :set_user, only: [:show, :update, :destroy]
 
   # GET /users
@@ -13,7 +14,16 @@ class Api::V1::UsersController < ApplicationController
     find_user_by_email
     if @user != nil
       if a = @user.valid_password?(params[:password])
-        render json: @user, status: :ok
+        data ={
+            "id": @user.id,
+            name: @user.name,
+            lastname: @user.lastname,
+            email: @user.email,
+            phone_number: @user.phone_number,
+            carrer: @user.carrer
+        }
+        token = JWT.encode data,Rails.application.secrets.secret_key_base, 'HS256'
+        render json:token, status: :ok
       else
         render json: a, status: :not_acceptable
       end

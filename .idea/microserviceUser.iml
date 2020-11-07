@@ -55,6 +55,7 @@
     <orderEntry type="library" scope="PROVIDED" name="globalid (v0.4.2, ruby-2.6.6-p146 (2)) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="i18n (v1.8.5, ruby-2.6.6-p146 (2)) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="json-schema (v2.8.1, ruby-2.6.6-p146 (2)) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="jwt (v2.2.2, ruby-2.6.6-p146 (2)) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="loofah (v2.7.0, ruby-2.6.6-p146 (2)) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="mail (v2.7.1, ruby-2.6.6-p146 (2)) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="marcel (v0.3.3, ruby-2.6.6-p146 (2)) [gem]" level="application" />
@@ -66,6 +67,7 @@
     <orderEntry type="library" scope="PROVIDED" name="msgpack (v1.3.3, ruby-2.6.6-p146 (2)) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="nio4r (v2.5.4, ruby-2.6.6-p146 (2)) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="nokogiri (v1.10.10, ruby-2.6.6-p146 (2)) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="openssl (v2.1.2, ruby-2.6.6-p146 (2)) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="orm_adapter (v0.5.0, ruby-2.6.6-p146 (2)) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="pg (v1.2.3, ruby-2.6.6-p146 (2)) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="public_suffix (v4.0.6, ruby-2.6.6-p146 (2)) [gem]" level="application" />
@@ -88,7 +90,6 @@
     <orderEntry type="library" scope="PROVIDED" name="rswag-api (v2.3.1, ruby-2.6.6-p146 (2)) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rswag-specs (v2.3.1, ruby-2.6.6-p146 (2)) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rswag-ui (v2.3.1, ruby-2.6.6-p146 (2)) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="simple_token_authentication (v1.17.0, ruby-2.6.6-p146 (2)) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="sprockets (v4.0.2, ruby-2.6.6-p146 (2)) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="sprockets-rails (v3.2.2, ruby-2.6.6-p146 (2)) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="thor (v1.0.1, ruby-2.6.6-p146 (2)) [gem]" level="application" />
