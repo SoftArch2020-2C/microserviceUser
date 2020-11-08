@@ -22,8 +22,12 @@ class Api::V1::UsersController < ApplicationController
             phone_number: @user.phone_number,
             carrer: @user.carrer
         }
+
         token = JWT.encode data,Rails.application.secrets.secret_key_base, 'HS256'
-        render json:token, status: :ok
+        login ={
+            "token":token
+        }
+        render json:login, status: :ok
       else
         render json: a, status: :not_acceptable
       end
