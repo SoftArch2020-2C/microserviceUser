@@ -44,21 +44,33 @@ class Api::V1::UsersController < ApplicationController
   # GET /users/{email}
   def show
     if ldap_login((params[:email]),(params[:password]))
+      # JWT CLAIMS
+      #Issuer
+      iss= "Froid.com"
+      #expiration date
+      exp = Time.now.to_i + 4 * 3600
+      #issued at
+      iat = Time.now.to_i
+
+
       find_user_by_email
       if @user != nil
         if a = @user.valid_password?(params[:password])
           data ={
+              iss: iss,
+              exp: exp,
+              iat: iat,
+          }
+
+          token = JWT.encode data,Rails.application.secrets.secret_key_base, 'HS256'
+          login ={
               "id": @user.id,
               name: @user.name,
               lastname: @user.lastname,
               email: @user.email,
               phone_number: @user.phone_number,
-              carrer: @user.carrer
-          }
-
-          token = JWT.encode data,Rails.application.secrets.secret_key_base, 'HS256'
-          login ={
-              "token":token
+              "token":token,
+              carrer: @user.carrer,
           }
           render json:login, status: :ok
         else

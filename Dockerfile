@@ -17,4 +17,4 @@ RUN bundle install
 COPY . .
 
 EXPOSE 3000
-CMD ["rails", "server", "-b", "ssl://0.0.0.0:3000?key=localhost.key&cert=localhost.crt"]
+CMD ["rails", "server", "-b", "0.0.0.0"]
