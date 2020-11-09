@@ -1,6 +1,38 @@
 class Api::V1::UsersController < ApplicationController
   require 'jwt'
+  require 'net/ldap'
+
+  HOST = ENV["LDAP_HOST"]
+  PORT = ENV["LDAP_PORT"]
+  #HOST = "ec2-18-210-24-118.compute-1.amazonaws.com"
+  #PORT = "389"
+  BASE = "ou=sa,dc=froid,dc=unal,dc=edu,dc=co"
   # before_action :set_user, only: [:show, :update, :destroy]
+
+  def ldap_login( email, password )
+    email = email + ".com"
+    ldap = Net::LDAP.new(:host => HOST, :port => PORT)
+    ldap.bind(:method => :simple, :username => "cn="+email+","+BASE,
+                 :password => password)
+  end
+
+  def ldap_register( email, password )
+    Net::LDAP.open(:host => HOST, :port => PORT) do |ldap|
+      if ldap.bind(:method => :simple, :username => "cn=admin,dc=froid,dc=unal,dc=edu,dc=co",
+                   :password => "admin")
+        # authentication succeeded
+        dn = "cn="+email+","+BASE
+        attr = {
+            :cn => email,
+            :objectclass => ["top", "inetorgperson"],
+            :sn => email,
+            :mail => email,
+            :userPassword => Net::LDAP::Password.generate(:md5, password)
+        }
+        ldap.add(:dn => dn, :attributes => attr)
+      end
+    end
+  end
 
   # GET /users
   def index
@@ -11,38 +43,46 @@ class Api::V1::UsersController < ApplicationController
 
   # GET /users/{email}
   def show
-    find_user_by_email
-    if @user != nil
-      if a = @user.valid_password?(params[:password])
-        data ={
-            "id": @user.id,
-            name: @user.name,
-            lastname: @user.lastname,
-            email: @user.email,
-            phone_number: @user.phone_number,
-            carrer: @user.carrer
-        }
+    if ldap_login((params[:email]),(params[:password]))
+      find_user_by_email
+      if @user != nil
+        if a = @user.valid_password?(params[:password])
+          data ={
+              "id": @user.id,
+              name: @user.name,
+              lastname: @user.lastname,
+              email: @user.email,
+              phone_number: @user.phone_number,
+              carrer: @user.carrer
+          }
 
-        token = JWT.encode data,Rails.application.secrets.secret_key_base, 'HS256'
-        login ={
-            "token":token
-        }
-        render json:login, status: :ok
-      else
-        render json: a, status: :not_acceptable
+          token = JWT.encode data,Rails.application.secrets.secret_key_base, 'HS256'
+          login ={
+              "token":token
+          }
+          render json:login, status: :ok
+        else
+          render json: a, status: :not_acceptable
+        end
       end
+    else
+      render json: false, status: :not_acceptable
     end
   end
 
 
   # POST /users
   def create
-    @user = User.new(user_params)
-    if @user.save
-      #render json: "created user:"+ @user.name.to_s, status: :created
-      render json: @user, status: :created
+    if ldap_register((params[:email]),(params[:password]))
+      @user = User.new(user_params)
+      if @user.save
+        #render json: "created user:"+ @user.name.to_s, status: :created
+        render json: @user, status: :created
+      else
+        render json: @user.errors, status: :unprocessable_entity
+      end
     else
-      render json: @user.errors, status: :unprocessable_entity
+      render json: false, status: :not_acceptable
     end
   end
 

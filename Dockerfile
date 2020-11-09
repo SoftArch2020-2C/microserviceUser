@@ -8,6 +8,8 @@ RUN apt-get update \
 ENV POSTGRES_HOST=froidusuariodb.chidvuv3t7pk.us-east-1.rds.amazonaws.com
 ENV POSTGRES_USER=carvesco
 ENV POSTGRES_PASSWORD=cavelascor
+ENV LDAP_HOST=ec2-18-210-24-118.compute-1.amazonaws.com
+ENV LDAP_PORT=389
 
 WORKDIR /usr/src/app
 COPY Gemfile* ./

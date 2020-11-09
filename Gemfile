@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.6.6'
+ruby '2.7.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.3'
@@ -32,6 +32,8 @@ gem 'jwt'
 gem 'openssl'
 
 gem 'rswag'
+
+gem 'net-ldap'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
