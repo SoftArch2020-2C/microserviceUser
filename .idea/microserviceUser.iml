@@ -65,6 +65,7 @@
     <orderEntry type="library" scope="PROVIDED" name="mini_portile2 (v2.4.0, ruby-2.6.6-p146 (2)) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="minitest (v5.14.2, ruby-2.6.6-p146 (2)) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="msgpack (v1.3.3, ruby-2.6.6-p146 (2)) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="net-ldap (v0.16.3, ruby-2.6.6-p146 (2)) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="nio4r (v2.5.4, ruby-2.6.6-p146 (2)) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="nokogiri (v1.10.10, ruby-2.6.6-p146 (2)) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="openssl (v2.1.2, ruby-2.6.6-p146 (2)) [gem]" level="application" />

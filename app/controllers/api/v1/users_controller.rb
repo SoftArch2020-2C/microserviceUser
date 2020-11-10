@@ -10,7 +10,6 @@ class Api::V1::UsersController < ApplicationController
   # before_action :set_user, only: [:show, :update, :destroy]
 
   def ldap_login( email, password )
-    email = email + ".com"
     ldap = Net::LDAP.new(:host => HOST, :port => PORT)
     ldap.bind(:method => :simple, :username => "cn="+email+","+BASE,
                  :password => password)
@@ -41,7 +40,7 @@ class Api::V1::UsersController < ApplicationController
     render json: @users.to_json(only: [:id, :name, :email,:encrypted_password])
   end
 
-  # GET /users/{email}
+  # GET /users/{id}
   def show
     if ldap_login((params[:email]),(params[:password]))
       # JWT CLAIMS
@@ -125,17 +124,9 @@ class Api::V1::UsersController < ApplicationController
 
 
 
-  def auth_user (password)
-    email=(params[:email])
-    email = email + ".com"
-    @user = User.find_by! email: email
-    User.find(1).valid_pa
-  end
-
 
   def find_user_by_email
     email=(params[:email])
-    email = email + ".com"
     @user = User.find_by! email: email
   rescue ActiveRecord::RecordNotFound
     render json: { errors: 'user not found' }, status: :not_found
