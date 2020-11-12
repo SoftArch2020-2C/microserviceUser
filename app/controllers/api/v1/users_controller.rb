@@ -4,8 +4,8 @@ class Api::V1::UsersController < ApplicationController
 
   HOST = ENV["LDAP_HOST"]
   PORT = ENV["LDAP_PORT"]
-  HOST = "ec2-18-210-24-118.compute-1.amazonaws.com"
-  PORT = "389"
+  #HOST = "ec2-18-210-24-118.compute-1.amazonaws.com"
+  #PORT = "389"
   BASE = "ou=sa,dc=froid,dc=unal,dc=edu,dc=co"
   # before_action :set_user, only: [:show, :update, :destroy]
 
@@ -40,9 +40,9 @@ class Api::V1::UsersController < ApplicationController
     render json: @users.to_json(only: [:id, :name, :email,:encrypted_password])
   end
 
-  # GET /users/{id}
+  # GET /users/{tag}
   def show
-    if ldap_login((params[:email]),(params[:password]))
+    #if ldap_login((params[:email]),(params[:password]))
       # JWT CLAIMS
       #Issuer
       iss= "Froid.com"
@@ -75,9 +75,9 @@ class Api::V1::UsersController < ApplicationController
         else
           render json: a, status: :not_acceptable
         end
-      end
-    else
-      render json: false, status: :not_acceptable
+      else
+    #else
+        render json: false, status: :not_acceptable
     end
   end
 
