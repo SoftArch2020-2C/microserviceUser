@@ -42,7 +42,7 @@ class Api::V1::UsersController < ApplicationController
 
   # GET /users/{tag}
   def show
-    #if ldap_login((params[:email]),(params[:password]))
+    if ldap_login((params[:email]),(params[:password]))
       # JWT CLAIMS
       #Issuer
       iss= "Froid.com"
@@ -75,8 +75,8 @@ class Api::V1::UsersController < ApplicationController
         else
           render json: a, status: :not_acceptable
         end
-      else
-    #else
+      end
+    else
         render json: false, status: :not_acceptable
     end
   end
